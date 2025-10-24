@@ -1,0 +1,13 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Node modules (if using a dev server)
+node_modules/
+
+# Build output
+dist/
+build/
+
+# VS Code
+.vscode/
