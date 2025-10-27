@@ -1,6 +1,5 @@
-# friendship-archive-group
 # Friendship Archive Group
-
+Part 1:
 A simple static HTML site celebrating the friendship of:
 
 - Dinh Phuong Anh
@@ -22,3 +21,6 @@ A simple static HTML site celebrating the friendship of:
    ```bash
    git clone https://github.com/<your-username>/friendship-archive-group.git
    cd friendship-archive-group
+
+Part 3:
+<img width="3840" height="1820" alt="image" src="https://github.com/user-attachments/assets/4d44a5fd-3ef4-4742-9e70-949100194cfb" />
