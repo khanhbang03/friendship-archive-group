@@ -27,3 +27,6 @@ Part 3:
 
 Part 5:<br>
 <img width="612" height="409" alt="image" src="https://github.com/user-attachments/assets/71a035c5-b0f8-49b3-b08f-a5efd0ac1c71" />
+
+Part 10000:
+<img width="3840" height="1820" alt="image" src="https://github.com/user-attachments/assets/6281b47b-ce52-40ea-9716-880eb84aad7b" />
