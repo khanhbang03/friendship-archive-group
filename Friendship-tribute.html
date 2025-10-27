@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Friendship Tribute — Hoping the Best</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --glass-bg: rgba(255,255,255,0.06);
+      --accent: rgba(160,215,150,0.9);
+      --soft: rgba(255,255,255,0.08);
+      --glow: 0 0 28px rgba(160,215,150,0.12), 0 0 80px rgba(160,200,140,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
+
+    body{
+      display:flex;align-items:center;justify-content:center;
+      background-color:#0b1a0f; /* fallback */
+      color: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow:hidden;
+    }
+
+    /* background image + soft overlay */
+    .bg {
+      position:fixed;inset:0;z-index:0;background-position:center center;background-size:cover;
+      background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80');
+      filter: saturate(0.92) contrast(0.9) brightness(0.66);
+      transform: scale(1.03);
+    }
+    .bg::after{
+      content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(6,12,6,0.22), rgba(5,10,6,0.55));
+    }
+
+    /* gentle bokeh particles */
+    .particles{position:fixed;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;}
+    .container{position:relative;z-index:2;display:flex;flex-direction:column;gap:22px;align-items:center;justify-content:center;padding:48px;min-height:100vh}
+
+    .card{
+      width:min(980px,92vw);backdrop-filter: blur(6px) saturate(1.05);
+      background: linear-gradient(135deg, rgba(10,20,12,0.28), rgba(8,14,10,0.2));
+      border-radius:20px;padding:36px 42px;border:1px solid rgba(255,255,255,0.04);box-shadow:var(--glow);
+      display:flex;flex-direction:column;gap:18px;align-items:center;text-align:center;
+    }
+
+    h1{font-family:'Playfair Display', serif;font-size:28px;margin:0;font-weight:700;letter-spacing:0.4px}
+    p.lead{margin:0;opacity:0.92;font-size:15px;max-width:780px}
+
+    /* names area */
+    .names {
+      display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:6px;
+    }
+    .name{
+      font-weight:600;padding:10px 16px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35), 0 0 0 rgba(160,215,150,0);
+      transition:transform 380ms cubic-bezier(.17,.84,.44,1), box-shadow 380ms;position:relative;color:#eafaf0;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+      font-size:16px;
+    }
+
+    /* glowing pulse for all names together */
+    .glow-all .name{
+      animation: pulseGlow 2.6s ease-in-out infinite;
+      box-shadow: 0 6px 28px rgba(160,215,150,0.12), 0 0 48px rgba(160,215,150,0.06);
+      transform: translateY(0);
+    }
+
+    @keyframes pulseGlow{
+      0%{transform:translateY(0) scale(1);filter:brightness(0.98)}
+      50%{transform:translateY(-4px) scale(1.02);filter:brightness(1.05)}
+      100%{transform:translateY(0) scale(1)}
+    }
+
+    .name:focus{outline:3px solid rgba(255,255,255,0.06)}
+
+    /* footer small */
+    .note{font-size:13px;opacity:0.85}
+
+    /* responsive */
+    @media (max-width:560px){
+      h1{font-size:20px}
+      .name{font-size:14px;padding:8px 12px}
+      .card{padding:20px}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <canvas class="particles" id="particles"></canvas>
+
+  <main class="container">
+    <section class="card" role="region" aria-labelledby="title">
+      <h1 id="title">Hoping the Best for Each Other</h1>
+      <p class="lead">A circle of friends—united by kindness, wishing each other well beneath the quiet forest canopy.</p>
+
+      <div class="names glow-all" aria-live="polite">
+        <span class="name" tabindex="0">Bang</span>
+        <span class="name" tabindex="0">Mrudav</span>
+        <span class="name" tabindex="0">Lao Tzu</span>
+        <span class="name" tabindex="0">Nathaniel</span>
+        <span class="name" tabindex="0">Ali Akram</span>
+        <span class="name" tabindex="0">Aittaty Kyzybek</span>
+        <span class="name" tabindex="0">Erzhan Okumalieve</span>
+        <span class="name" tabindex="0">Sunbin Pham Bui</span>
+        <span class="name" tabindex="0">Hoang Anh</span>
+        <span class="name" tabindex="0">Hoang Thu Trang</span>
+        <span class="name" tabindex="0">Gia Cat Luong</span>
+      </div>
+
+      <div class="note">Quiet visual tribute — no sound. Click any name to gently highlight it.</div>
+    </section>
+  </main>
+
+  <script>
+    // subtle mouse parallax for background
+    (function(){
+      const bg = document.querySelector('.bg');
+      document.addEventListener('mousemove', e => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 8;
+        const y = (e.clientY / window.innerHeight - 0.5) * 6;
+        bg.style.transform = `translate(${x}px, ${y}px) scale(1.03)`;
+      });
+    })();
+
+    // name click highlight
+    document.querySelectorAll('.name').forEach(el => {
+      el.addEventListener('click', () => {
+        el.style.boxShadow = '0 10px 40px rgba(160,215,150,0.22)';
+        el.style.transform = 'translateY(-6px) scale(1.04)';
+        setTimeout(()=>{
+          el.style.boxShadow = '';
+          el.style.transform = '';
+        }, 900);
+      });
+    });
+
+    // tiny particles overlay
+    (function(){
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let w, h, particles;
+      function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
+      addEventListener('resize', resize);resize();
+
+      function make(){
+        particles = Array.from({length: Math.round((w*h)/65000)}, ()=>({
+          x: Math.random()*w, y: Math.random()*h, r: (Math.random()*1.6)+0.4, v: (Math.random()*0.2)+0.02, t: Math.random()*Math.PI*2
+        }));
+      }
+      make();addEventListener('resize', make);
+
+      function frame(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of particles){
+          p.t += p.v/2;
+          p.y += Math.sin(p.t)*0.12;
+          p.x += Math.cos(p.t)*0.08;
+          const alpha = 0.12 + 0.18*Math.sin(p.t*1.2);
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(210,250,200,${alpha.toFixed(2)})`;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+        requestAnimationFrame(frame);
+      }
+      frame();
+    })();
+
+  </script>
+</body>
+</html>
